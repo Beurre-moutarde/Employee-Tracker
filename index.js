@@ -27,3 +27,31 @@ connection.connect(function (err) {
     // run the start function after the connection is made to prompt the user
     start();
 });
+
+function start() {
+    //set up prompts
+    inquirer.prompt([
+        //first question
+        {
+            name: "addViewUpdate",
+            type: "list",
+            message: "What would you like to do?",
+            choices: ["Add", "View", "Update Employee Role"]
+        }])
+        //if view, show employees, departments or roles table
+
+        .then(function (response) {
+            switch (response.addViewUpdate) {
+                case "Add":
+                    add();
+                    break;
+                case "View":
+                    view();
+                    break;
+                case "Update Employee Role":
+                    updateEmployeeRole();
+                    break;
+                default: console.log("Please enter appropriate choice.")
+            }
+        })
+}
