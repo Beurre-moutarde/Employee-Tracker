@@ -140,7 +140,7 @@ function addDepartment() {
     inquirer.prompt([
 
         {
-            name: "ID_PK",
+            name: "id",
             type: "number",
             message: "What is the department ID?"
         },
@@ -156,7 +156,7 @@ function addDepartment() {
             console.table(response)
             let query = connection.query("INSERT INTO department SET ?",
                 {
-                    ID_PK: response.ID_PK,
+                    id: response.id,
                     name: response.name,
 
                 },
@@ -168,12 +168,11 @@ function addDepartment() {
             start()
         })
 }
-//end add department
 
 function addRole() {
     inquirer.prompt([
         {
-            name: "ID_PK",
+            name: "id",
             type: "number",
             message: "What is the role ID?"
         },
@@ -201,7 +200,7 @@ function addRole() {
             //enter mysql code here
             let query = connection.query("INSERT INTO role SET ?",
                 {
-                    ID_PK: response.ID_PK,
+                    ID: response.id,
                     title: response.title,
                     salary: response.salary,
                     department_id: response.department_id
@@ -270,9 +269,9 @@ function updateEmployeeRole() {
         if (err) throw err;
         // transform the data to be used in inquirer
         const organizedEmployeeData = employeeRes.map(({ id, first_name, last_name }) => `${id}: ${first_name} ${last_name}`)
-        connection.query("SELECT ID_PK, title from role", (err, roleRes) => {
+        connection.query("SELECT id, title from role", (err, roleRes) => {
             if (err) throw err;
-            const organizedRoleData = roleRes.map(({ ID_PK, title }) => `${ID_PK}: ${title}`);
+            const organizedRoleData = roleRes.map(({ id, title }) => `${id}: ${title}`);
             // evidence collected above
             inquirer.prompt([
                 {
