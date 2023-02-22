@@ -3,6 +3,7 @@ const express = require('express');
 const mysql = require('mysql2');
 const fs = require('fs');
 const inquirer = require('inquirer')
+require('console.table')
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -207,7 +208,7 @@ function addRole() {
                 },
                 function (err, res) {
                     if (err) throw err
-                    console.log(res)
+                    console.table(res)
                 })
 
             start()
